@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "797273396820",
+    "firebase_url": "https://paypad-f8f8d.firebaseio.com",
+    "project_id": "paypad-f8f8d",
+    "storage_bucket": "paypad-f8f8d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:797273396820:android:fd5ee7830fb727d7",
+        "android_client_info": {
+          "package_name": "com.example.paypad"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "797273396820-urr2qv28vmff57ct0f4b60j5vnd6vkkg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.paypad",
+            "certificate_hash": "b31f7e0a1199b9e5a7ffaa7d89d053a0218bd40c"
+          }
+        },
+        {
+          "client_id": "797273396820-gl7toe1o1nhvr70ofhn0ke91j7s90lbs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBiwrVJsW7G-UZMchSjQDFISjo81n-E1vU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "797273396820-gl7toe1o1nhvr70ofhn0ke91j7s90lbs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

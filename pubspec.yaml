@@ -1,0 +1,62 @@
+name: paypad
+description: PayPad
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.0.0-dev.68.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^0.1.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  email_validator: '^1.0.0'
+  firebase_auth: ^0.6.2+1
+  cloud_firestore: ^0.8.2+1
+  font_awesome_flutter: ^8.0.1
+  fluro: ^1.1.0
+  flutter_calendar_carousel: ^1.1.2
+  material_search: ^0.2.7
+  flutter_spinkit: ^2.1.0
+  charts_flutter: ^0.4.0
+
+flutter:
+
+  uses-material-design: true
+
+  assets:
+    - assets/img/
+    
+  fonts:
+    - family: WorkSansSemiBold
+      fonts:
+        - asset: assets/fonts/Work_Sans/WorkSans-Semibold.ttf
+
+    - family: WorkSansBold
+      fonts:
+        - asset: assets/fonts/Work_Sans/WorkSans-Bold.ttf
+
+    - family: WorkSansMedium
+      fonts:
+        - asset: assets/fonts/Work_Sans/WorkSans-Medium.ttf
+
+    - family: Poppins
+      fonts:  
+        - asset: assets/fonts/Poppins/Poppins-Medium.ttf
+          weight: 400
+        - asset: assets/fonts/Poppins/Poppins-Regular.ttf
+          weight: 500
+        - asset: assets/fonts/Poppins/Poppins-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Poppins/Poppins-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Poppins/Poppins-Light.ttf
+          weight: 300
+        - asset: assets/fonts/Poppins/Poppins-Thin.ttf
+          weight: 200
+
