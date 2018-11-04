@@ -61,8 +61,7 @@ class SendMoneyPageState extends State<SendMoneyPage> {
     // TODO: implement initState
     super.initState();
 
-    previousCharge = 0.00;
-    currentCharge = 0.00;
+  
 
     widget.auth.currentUser().then((userId) {
       Firestore.instance
@@ -72,6 +71,9 @@ class SendMoneyPageState extends State<SendMoneyPage> {
           .snapshots()
           .listen((data) {
         setState(() {
+          previousCharge = 0.00;
+          currentCharge = 0.00;
+
           data.documents.forEach((doc) {
             endDate = doc['endDate'];
 
@@ -209,14 +211,14 @@ class SendMoneyPageState extends State<SendMoneyPage> {
       case 1:
         return _getTotal();
       case 2:
-        return _getBankCardSection();
+        return _getPaymentSection();
       default:
         return _getSendSection();
     }
   }
 
   Widget _getBalance() {
-    Color previousChargeColor = previousCharge == 0
+    Color previousChargeColor = previousCharge == 0.00
         ? Theme.Colors.goodColor
         : Theme.Colors.warningColor;
 
@@ -415,7 +417,7 @@ class SendMoneyPageState extends State<SendMoneyPage> {
             ]));
   }
 
-  Widget _getBankCardSection() {
+  Widget _getPaymentSection() {
     return Container(
 //      color: Colors.yellow,
       margin: EdgeInsets.all(16.0),
@@ -448,7 +450,7 @@ class SendMoneyPageState extends State<SendMoneyPage> {
                   shrinkWrap: true,
                   physics: ScrollPhysics(),
                   itemBuilder: (BuildContext context, int index) {
-                    return _getBankCard(index);
+                    return _getPayment(index);
                   }),
             ),
           ),
@@ -457,17 +459,22 @@ class SendMoneyPageState extends State<SendMoneyPage> {
     );
   }
 
-  Widget _getBankCard(int index) {
+  Widget _getPayment(int index) {
     String path;
-    String number;
+    String payment;
+
     switch (index) {
+      case 0:
+        path = 'assets/img/ico_pay_paymaya.png';
+        payment = 'PayMaya';
+        break;
       case 1:
-        path = 'assets/img/ico_logo_red.png';
+        path = 'assets/img/ico_pay_globe.jpg';
+        payment = 'G Cash';
         break;
       case 2:
-        path = 'assets/img/ico_logo_blue.png';
-        break;
-      case 3:
+        path = 'assets/img/ico_pay_paypal.png';
+        payment = 'PayPal';
         break;
     }
 
@@ -475,11 +482,15 @@ class SendMoneyPageState extends State<SendMoneyPage> {
       margin: EdgeInsets.symmetric(horizontal: 16.0),
       child: Row(
         children: <Widget>[
-          Image.asset(path),
+          Image.asset(
+            path,
+            height: 20.0,
+            width: 20.0,
+          ),
           Expanded(
               child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text('XXXX XXXX XXXX 9898'),
+            child: Text(payment, style: TextStyle(fontSize: 20.0)),
           )),
           Radio(
             activeColor: Color(0xFF65D5E3),

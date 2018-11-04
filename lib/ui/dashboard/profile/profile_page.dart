@@ -69,16 +69,47 @@ class ProfilePageState extends State<ProfilePage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Padding(
-                padding:
-                    const EdgeInsets.only(top: 50.0, left: 16.0, right: 16.0),
-                child: Text(
-                  'My Account',
-                  style: TextStyle(
-                      fontFamily: 'Poppins',
-                      fontWeight: FontWeight.w700,
-                      fontSize: 20.0),
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        top: 50.0, left: 16.0, right: 16.0),
+                    child: Text(
+                      'My Account',
+                      style: TextStyle(
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.w700,
+                          fontSize: 20.0),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        top: 50.0, left: 170.0, right: 16.0),
+                    child: new IconButton(
+                      icon: new Icon(Icons.settings),
+                      onPressed: () => showDialog(
+                          context: context,
+                          child: new AlertDialog(
+                            title: new Text("Are you sure?"),
+                            content: new Text("Do you wish to signout?"),
+                            actions: <Widget>[
+                              FlatButton(
+                                  child: const Text('NO'),
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  }),
+                              FlatButton(
+                                  child: const Text('YES'),
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  })
+                            ],
+                          )),
+                      tooltip: 'Signout',
+                    ),
+                  ),
+                ],
               ),
               Container(
                 child: Expanded(

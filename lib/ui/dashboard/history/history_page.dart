@@ -6,7 +6,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:paypad/ui/dashboard/history/history_all.dart';
 import 'package:paypad/Theme.dart' as Theme;
 import 'package:charts_flutter/flutter.dart' as charts;
-import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
 import 'package:intl/intl.dart';
 
 class HistoryPage extends StatefulWidget {
@@ -21,7 +20,6 @@ class HistoryPageState extends State<HistoryPage> {
   List<HistoryModel> waterList;
   List<HistoryModel> elecList;
   List<charts.Series> seriesList;
-  DateTime _currentDate;
 
   @override
   void initState() {
@@ -38,7 +36,7 @@ class HistoryPageState extends State<HistoryPage> {
           .listen((data) {
         setState(() {
           waterList = new List();
-         elecList = new List();
+          elecList = new List();
           seriesList = new List();
           data.documents.forEach((doc) {
             DateTime date = doc['paidDate'];
@@ -155,30 +153,6 @@ class HistoryPageState extends State<HistoryPage> {
     }
   }
 
-  Widget _calendar() {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 16.0),
-      child: CalendarCarousel(
-        onDayPressed: (DateTime date) {
-          this.setState(() => _currentDate = date);
-        },
-        thisMonthDayBorderColor: Colors.grey,
-        height: 370.0,
-        selectedDateTime: _currentDate,
-        daysHaveCircularBorder: false,
-
-        /// null for not rendering any border, true for circular border, false for rectangular border
-//          weekendStyle: TextStyle(
-//            color: Colors.red,
-//          ),
-//          weekDays: null, /// for pass null when you do not want to render weekDays
-//          headerText: Container( /// Example for rendering custom header
-//            child: Text('Custom Header'),
-//          ),
-      ),
-    );
-  }
-
   Widget _getSendSection() {
     return Container(
       margin: EdgeInsets.all(16.0),
@@ -228,76 +202,5 @@ class HistoryPageState extends State<HistoryPage> {
         data: elecList,
       )
     ];
-  }
-
-  Widget _historyWidget(HistoryModel history) {
-    return Container(
-//      height: 100.0,
-      margin: EdgeInsets.only(bottom: 16.0, left: 16.0, right: 16.0),
-      child: Card(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: Row(
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(right: 16.0),
-                child: Image.asset(
-                  history.historyAssetPath,
-                  height: 40.0,
-                  width: 40.0,
-                ),
-              ),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        history.billType,
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                        textAlign: TextAlign.left,
-                      ),
-                      Text(history.reading)
-                    ],
-                  ),
-                ),
-              ),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        '₱ ${history.amount.toString()}',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Expanded(
-                            child: Text(
-                              'Date: \n ' +
-                                  DateFormat('MMM dd, yyyy')
-                                      .format(history.date)
-                                      .toString(),
-                              textAlign: TextAlign.right,
-                            ),
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                ),
-              )
-            ],
-          ),
-        ),
-      ),
-    );
   }
 }
