@@ -4,11 +4,6 @@
 //import 'package:flutter/material.dart';
 //import 'package:http/http.dart' as http;
 
-import 'package:rest_api_lib/services/rest/config/paymaya.dart';
-
-import 'package:paypad/model/paymaya/PaymentToken.dart';
-
-
 import 'package:http/http.dart';
 
 Client client = Client();
@@ -41,7 +36,7 @@ class PaymayaRoutes {
   generatePaymentTokens(dynamic model) async {
     var response = await client.post(PAYMENT_TOKEN_PATH,
         headers: model.getHeader(), body: model.getRequest());
-
+    
     return response;
   }
 

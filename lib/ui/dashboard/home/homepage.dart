@@ -8,6 +8,8 @@ import 'package:paypad/model/tenants_model.dart';
 import 'package:paypad/model/history_model.dart';
 import 'package:intl/intl.dart';
 
+import 'package:firebase_messaging/firebase_messaging.dart';
+
 class HomePage extends StatefulWidget {
   HomePage({this.auth, this.onSignOut});
   final BaseAuth auth;
@@ -21,6 +23,8 @@ class HomePageState extends State<HomePage> {
   double screenWidth = 0.0;
   DateTime _currentDate = DateTime.now();
 
+  FirebaseMessaging _firebaseMessaging = new FirebaseMessaging();
+
   TenantsModel _tenantsModel;
   List<DateTime> _markedDates;
   List<HistoryModel> _billings;
@@ -29,6 +33,24 @@ class HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
 
+    _firebaseMessaging.configure(
+      onMessage: (Map<String, dynamic> message) {
+        print('on message $message');
+      },
+      onResume: (Map<String, dynamic> message) {
+        print('on resume $message');
+      },
+      onLaunch: (Map<String, dynamic> message) {
+        print('on launch $message');
+      },
+    );
+
+    _firebaseMessaging.requestNotificationPermissions(
+        const IosNotificationSettings(sound: true, badge: true, alert: true));
+    _firebaseMessaging.getToken().then((token) {
+      print(token);
+    });
+
     widget.auth.currentUser().then((userId) {
       Firestore.instance
           .collection('tenants')
@@ -36,8 +58,14 @@ class HomePageState extends State<HomePage> {
           .snapshots()
           .listen((data) {
         setState(() {
-          _tenantsModel = TenantsModel(userId, data['firstName'],
-              data['lastName'], data['email'], data['roomId'], data['cellNo']);
+          _tenantsModel = TenantsModel(
+              userId,
+              data['firstName'],
+              data['lastName'],
+              data['email'],
+              data['roomId'],
+              data['cellNo'],
+              data['signatoryAddress']);
         });
       });
 

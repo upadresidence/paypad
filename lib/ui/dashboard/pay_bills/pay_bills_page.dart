@@ -5,6 +5,12 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart';
 import 'package:paypad/Theme.dart' as Theme;
 
+import 'package:paypad/services/rest/api.dart';
+
+import 'package:paypad/services/rest/models/paymaya/payment_token.dart';
+import 'package:paypad/services/rest/models/paymaya/payment.dart';
+import 'package:paypad/services/rest/models/paymaya/sandbox_paymaya_credential.dart';
+
 class SendMoneyPageRoute extends PageRouteBuilder {
   SendMoneyPageRoute(BaseAuth auth, String billType)
       : super(
@@ -46,7 +52,7 @@ class SendMoneyPage extends StatefulWidget {
 class SendMoneyPageState extends State<SendMoneyPage> {
   final TextEditingController amountController = TextEditingController();
 
-  int selectedCardIndex = 0;
+  int paymentIndex = 0;
 
   DateTime endDate;
   DateTime currentDate = DateTime.now();
@@ -61,7 +67,8 @@ class SendMoneyPageState extends State<SendMoneyPage> {
     // TODO: implement initState
     super.initState();
 
-  
+    previousCharge = 0.00;
+    currentCharge = 0.00;
 
     widget.auth.currentUser().then((userId) {
       Firestore.instance
@@ -98,10 +105,10 @@ class SendMoneyPageState extends State<SendMoneyPage> {
               }
               totalCharge = previousCharge + currentCharge;
             }
-            if (previousCharge == 0.00 && currentCharge == 0) {
-              totalCharge = -1.00;
-            }
           });
+          if (previousCharge == 0.00 && currentCharge == 0.00) {
+            totalCharge = -1.00;
+          }
         });
       });
     });
@@ -495,9 +502,9 @@ class SendMoneyPageState extends State<SendMoneyPage> {
           Radio(
             activeColor: Color(0xFF65D5E3),
             value: index,
-            groupValue: selectedCardIndex,
+            groupValue: paymentIndex,
             onChanged: (value) {
-              selectedCardIndex = value;
+              paymentIndex = value;
               setState(() {});
             },
           )
@@ -511,7 +518,7 @@ class SendMoneyPageState extends State<SendMoneyPage> {
       margin: EdgeInsets.all(16.0),
       child: GestureDetector(
           onTapUp: (tapDetail) {
-            Navigator.popUntil(context, ModalRoute.withName('/'));
+            _payBills();
           },
           child: Align(
             alignment: Alignment.bottomCenter,
@@ -534,5 +541,33 @@ class SendMoneyPageState extends State<SendMoneyPage> {
             ),
           )),
     );
+  }
+
+  bool _payBills() {
+    var number = 4123450131000508;
+    var exp_month = 05;
+    var exp_year = 2019;
+    var cvc = 123;
+
+    PaymentToken paymentToken = new PaymentToken();
+    Payment payment = new Payment();
+
+    Map<String, dynamic> request = {
+      'card': {
+        'number': number,
+        'expMonth': exp_month,
+        'expYear': exp_year,
+        'cvc': cvc
+      }
+    };
+
+    paymentToken.setRequest(request);
+    paymentToken.setHeader(payment.getHeader());
+
+    String action = 'token';
+    var response = Api.executeRequest(paymentToken, action);
+    paymentToken.setResponse(response);
+
+    print('DONE!');
   }
 }

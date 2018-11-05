@@ -5,7 +5,8 @@ class TenantsModel {
   final String email;
   final String roomNo;
   final String cellNo;
+  final String billingAddress;
 
-  TenantsModel(
-      this.userId, this.firstName, this.lastName, this.email, this.roomNo,this.cellNo);
+  TenantsModel(this.userId, this.firstName, this.lastName, this.email,
+      this.roomNo, this.cellNo, this.billingAddress);
 }

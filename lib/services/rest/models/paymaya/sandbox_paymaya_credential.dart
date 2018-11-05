@@ -89,7 +89,9 @@ class SandboxMaymayaCredential {
     return list_merchants[index];
   }
 
-  static String authentication = 'Basic cGstNnkyV1g2V2hXeGZRT2c4ZXpLSVV1aUp4YTdnQzRzRHZPaXBuOU5GWGx3ejo=';
+  static String authentication =
+      'Basic cGstNnkyV1g2V2hXeGZRT2c4ZXpLSVV1aUp4YTdnQzRzRHZPaXBuOU5GWGx3ejo=';
+
   static String getAuthentication() {
     return authentication;
   }

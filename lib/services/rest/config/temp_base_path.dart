@@ -1,0 +1,1 @@
+final String BASE_PATH = 'rest_api_lib';

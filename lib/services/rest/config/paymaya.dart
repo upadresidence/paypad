@@ -1,0 +1,1 @@
+final String BASE_REST_URL = 'https://pg-sandbox.paymaya.com/checkout/';

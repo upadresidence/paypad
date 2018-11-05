@@ -44,9 +44,10 @@ class ProfilePageState extends State<ProfilePage> {
           String email = data['email'];
           String roomNo = data['roomId'];
           String cellNo = data['cellNo'];
+          String billingAddress = data['signatoryAddress'];
 
           tenant = new TenantsModel(
-              userId, firstName, lastName, email, roomNo, cellNo);
+              userId, firstName, lastName, email, roomNo, cellNo, billingAddress);
         });
       });
     });
@@ -242,6 +243,36 @@ class ProfilePageState extends State<ProfilePage> {
                                               Expanded(
                                                 child: Text(
                                                   tenant.email,
+                                                  style: TextStyle(
+                                                      fontFamily: 'Poppins',
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      fontSize: 20.0),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              bottom: 16.0),
+                                          child: Row(
+                                            children: <Widget>[
+                                              Padding(
+                                                padding: EdgeInsets.only(
+                                                    right: 30.0),
+                                                child: Text(
+                                                  'Address:',
+                                                  style: TextStyle(
+                                                      fontFamily: 'Poppins',
+                                                      fontWeight:
+                                                          FontWeight.w700,
+                                                      fontSize: 20.0),
+                                                ),
+                                              ),
+                                              Expanded(
+                                                child: Text(
+                                                  tenant.billingAddress,
                                                   style: TextStyle(
                                                       fontFamily: 'Poppins',
                                                       fontWeight:
